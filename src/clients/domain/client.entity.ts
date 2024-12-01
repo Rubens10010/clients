@@ -9,12 +9,10 @@ import {
     DeleteDateColumn,
 } from 'typeorm';
 import { DocumentType } from './document-type.entity';
+import { BaseEntity } from 'src/database/base.entity';
 
 @Entity('clients')
-export class Client {
-    @PrimaryGeneratedColumn()
-    id: number;
-
+export class Client extends BaseEntity {
     @Column({ length: 100 })
     name: string;
 
@@ -33,16 +31,4 @@ export class Client {
 
     @Column({ length: 50, nullable: true })
     email?: string;
-
-    @CreateDateColumn()
-    @Column({ name: 'created_at' })
-    createdAt: Date;
-
-    @UpdateDateColumn()
-    @Column({ name: 'updated_at' })
-    updatedAt: Date;
-
-    @DeleteDateColumn()
-    @Column({ name: 'deleted_at' })
-    deletedAt?: Date;
 }

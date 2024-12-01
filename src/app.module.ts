@@ -3,18 +3,21 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClientsModule } from './clients/clients.module';
 import { Client } from './clients/domain/client.entity';
 import { DocumentType } from './clients/domain/document-type.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
     imports: [
+        ConfigModule.forRoot(),
         TypeOrmModule.forRoot({
             type: 'postgres',
-            host: 'localhost',
-            port: 5432,
-            username: 'admin',
-            password: '1335',
-            database: 'clients_service',
-            entities: [Client, DocumentType], // Include all entities
-            synchronize: false, // Use migrations for schema changes
+            host: process.env.DATABASE_HOST,
+            port: parseInt(process.env.DATABASE_PORT, 5432),
+            username: process.env.DATABASE_USER,
+            password: process.env.DATABASE_PASSWORD,
+            database: process.env.DATABASE_NAME,
+            synchronize: false,
+            entities: [__dirname + '/**/*.entity{.ts,.js}'],
+            autoLoadEntities: true,
         }),
         ClientsModule, // Import the Clients module
     ],

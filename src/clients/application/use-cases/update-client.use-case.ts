@@ -8,7 +8,7 @@ export class UpdateClientUseCase {
     constructor(private readonly clientRepository: ClientRepository) {}
 
     async execute(
-        id: number,
+        id: string,
         updateClientDto: UpdateClientDto,
     ): Promise<Client> {
         const client = await this.clientRepository.findById(id);

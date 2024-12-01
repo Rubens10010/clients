@@ -19,7 +19,7 @@ export class ClientRepository {
         return this.clientRepository.find({ relations: ['documentType'] });
     }
 
-    findById(id: number): Promise<Client | null> {
+    findById(id: string): Promise<Client | null> {
         return this.clientRepository.findOne({
             where: { id },
             relations: ['documentType'],
@@ -30,7 +30,7 @@ export class ClientRepository {
         return this.clientRepository.save(client);
     }
 
-    delete(id: number): Promise<void> {
+    delete(id: string): Promise<void> {
         return this.clientRepository.softDelete(id).then(() => {});
     }
 }
